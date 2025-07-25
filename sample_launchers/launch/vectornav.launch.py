@@ -23,9 +23,6 @@ def generate_launch_description():
         name="vn_sensor_msgs",
         namespace="/aiformula_sensing",
         parameters=[ROS_PARAM_CONFIG],
-        remappings=[
-            ("vectornav/imu", "/aiformula_sensing/vectornav/imu"),
-        ],
     )
 
     return LaunchDescription(
