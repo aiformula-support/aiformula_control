@@ -1,0 +1,10 @@
+# Vim
+*.swp
+*.swo
+
+# Visual Studio Code
+.vscode/
+*.code-workspace
+
+# Python
+*.pyc
