@@ -55,17 +55,24 @@ void EmergencyStopController::canFrameCallback(const can_msgs::msg::Frame::Share
     }
 
     if (msg->data[0] == 8 && msg->data[2] == 8) {
-        is_emergency_ = true;
-    } else {
+        if (!is_emergency_) {
+            is_emergency_ = true;
+            publishStopTwist();
+        }
+    } else if (is_emergency_) {
         is_emergency_ = false;
     }
 }
 
-void EmergencyStopController::publishTwistCallback() {
+void EmergencyStopController::publishTwistCallback() const {
     if (is_emergency_) {
-        twist_pub_->publish(stop_twist_);
-        RCLCPP_INFO_ONCE(this->get_logger(), "Publish Twist !");
+        publishStopTwist();
     }
+}
+
+void EmergencyStopController::publishStopTwist() const {
+    twist_pub_->publish(stop_twist_);
+    RCLCPP_INFO_ONCE(this->get_logger(), "Publish Twist !");
 }
 
 }  // namespace aiformula

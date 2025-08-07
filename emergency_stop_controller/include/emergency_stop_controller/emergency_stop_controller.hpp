@@ -26,7 +26,8 @@ private:
     void initValues(const InitParams& init_params);
     void printParam(const InitParams& init_params) const;
     void canFrameCallback(const can_msgs::msg::Frame::SharedPtr msg);
-    void publishTwistCallback();
+    void publishTwistCallback() const;
+    void publishStopTwist() const;
 
     rclcpp::TimerBase::SharedPtr publish_twist_timer_;
     rclcpp::Subscription<can_msgs::msg::Frame>::SharedPtr can_sub_;
