@@ -42,6 +42,29 @@ def generate_launch_description():
         ),
     )
 
+    # --- Command input from gamepad --- #
+    gamepad_joy = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(
+            osp.join(get_package_share_directory("sample_launchers"), "launch/gamepad_joy.launch.py"),
+        ),
+    )
+    # --- Output velocity and angular velocity from gamepad --- #
+    gamepad_teleop = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(
+            osp.join(get_package_share_directory("sample_launchers"), "launch/gamepad_teleop.launch.py"),
+        ),
+    )
+    # --- Multiplex velocities --- #
+    twist_mux = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(
+            osp.join(get_package_share_directory("sample_launchers"), "launch/twist_mux.launch.py"),
+        ),
+        launch_arguments={
+            "use_rviz": "false",
+            "use_runtime_monitor": "false",
+        }.items(),
+    )
+
     return LaunchDescription(
         [
             *launch_args,
@@ -49,5 +72,8 @@ def generate_launch_description():
             emergency_stop_controller,
             motor_controller,
             can_receiver_and_sender,
+            gamepad_joy,
+            gamepad_teleop,
+            twist_mux,
         ]
     )
