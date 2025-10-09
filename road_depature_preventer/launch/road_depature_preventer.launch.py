@@ -26,7 +26,7 @@ def generate_launch_description():
         package=PACKAGE_NAME,
         executable=NODE_NAME,
         name=NODE_NAME,
-        namespace="/aiformula_control/gnss_safety_checker",
+        namespace="/aiformula_control/road_depature_preventer",
         output="screen",
         emulate_tty=True,
         arguments=["--ros-args", "--log-level", LaunchConfiguration('log_level')],

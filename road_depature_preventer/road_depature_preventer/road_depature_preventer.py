@@ -28,6 +28,7 @@ class GnssTest(Node):
         buffer_size = 10
         self.gnss_sub_ = self.create_subscription(NavSatFix, 'gnss', self.gnss_callback, buffer_size)
         self.coasting_twist_pub = self.create_publisher(Twist, 'pub_cmd_vel_gnss', buffer_size)
+        self.twist_msg = Twist()
         
 
     def gnss_callback(self,msg):
@@ -36,7 +37,7 @@ class GnssTest(Node):
         current_position = Point(msg.latitude,msg.longitude)
 
         if forbidden_inside_zone.contains(current_position) or not forbidden_outside_zone.contains(current_position):
-            print("out!!")
+            self.twist_msg.linear.x = 0.0
         else:
             print("ok")
 
