@@ -4,3 +4,6 @@
 [submodule "vectornav"]
 	path = vectornav
 	url = https://github.com/dawonn/vectornav.git
+[submodule "twist_mux"]
+	path = twist_mux
+	url = https://github.com/ros-teleop/twist_mux.git
