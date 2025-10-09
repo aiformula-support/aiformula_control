@@ -30,7 +30,7 @@ class MotorController(Node):
         self.publish_timer = self.create_timer(self.publish_timer_loop_duration, self.publish_canframe_callback)
         self.frame_msg = Frame()
         self.frame_msg.header.frame_id = "can0"  # Default can0
-        self.frame_msg.id = 0x290  # MotorController CAN ID : 0x210
+        self.frame_msg.id = 0x210  # MotorController CAN ID : 0x210
         self.frame_msg.dlc = 8  # Data length
 
     def get_ros_params(self):

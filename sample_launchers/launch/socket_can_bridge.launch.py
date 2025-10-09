@@ -46,8 +46,7 @@ def generate_launch_description():
                     "interface": LaunchConfiguration("interface"),
                     "interval_sec": LaunchConfiguration("sender_timeout_sec"),
                     "enable_can_fd": LaunchConfiguration("enable_can_fd"),
-                    #"to_can_bus_topic": "/aiformula_control/motor_controller/reference_signal",
-                    "to_can_bus_topic": "/aiformula_control/can_mux/reference_signal",
+                    "to_can_bus_topic": "/aiformula_control/motor_controller/reference_signal",
                 }.items(),
             ),
         ]

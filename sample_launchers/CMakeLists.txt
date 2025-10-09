@@ -6,7 +6,6 @@ find_package(ament_cmake REQUIRED)
 install(
     DIRECTORY
         ${CMAKE_CURRENT_SOURCE_DIR}/launch
-        ${CMAKE_CURRENT_SOURCE_DIR}/config
     DESTINATION share/${PROJECT_NAME}
 )
 

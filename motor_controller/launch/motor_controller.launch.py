@@ -38,8 +38,7 @@ def generate_launch_description():
         ],
         parameters=[*ROS_PARAM_CONFIG],
         remappings=[
-            #("sub_speed_command", "/aiformula_control/twist_mux/cmd_vel"),
-            ("sub_speed_command", "/aiformula_control/gamepad/cmd_vel"),
+            ("sub_speed_command", "/aiformula_control/twist_mux/cmd_vel"),
             ("pub_can", "/aiformula_control/motor_controller/reference_signal"),
         ],
     )
