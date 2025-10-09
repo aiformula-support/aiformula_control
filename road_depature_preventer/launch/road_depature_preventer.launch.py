@@ -7,8 +7,8 @@ from ament_index_python.packages import get_package_share_directory
 
 
 def generate_launch_description():
-    PACKAGE_NAME = "gnss_safety_checker"
-    NODE_NAME = "gnss_safety_checker"
+    PACKAGE_NAME = "road_depature_preventer"
+    NODE_NAME = "road_depature_preventer"
     PACKAGE_DIR = get_package_share_directory(PACKAGE_NAME)
 
     launch_args = (
@@ -21,8 +21,11 @@ def generate_launch_description():
 
     ROS_PARAM_CONFIG = (
         osp.join(PACKAGE_DIR, "config", PACKAGE_NAME + ".yaml"),
+        osp.join(get_package_share_directory("sample_vehicle"), "config", "wheel.yaml"),
+        osp.join(PACKAGE_DIR, "config", "remote_motor_controller.yaml"),
     )
-    handle_controller_teleop = Node(
+    
+    road_depature_preventer = Node(
         package=PACKAGE_NAME,
         executable=NODE_NAME,
         name=NODE_NAME,
@@ -33,13 +36,11 @@ def generate_launch_description():
         parameters=[*ROS_PARAM_CONFIG],
         remappings=[
             ("gnss", "/aiformula_sensing/vectornav/gnss"),
-            # ("pub_cmd_vel", "/aiformula_control/handle_controller/cmd_vel"),
-            # ("pub_cmd_vel_coasting", "/aiformula_control/handle_controller/cmd_vel/coasting"),
-            # ("pub_twist_mux_lock", "/aiformula_control/twist_mux/gamepad/lock"),
+            ("pub_can", "motor_controller/reference_signal"),
         ],
     )
 
     return LaunchDescription([
         *launch_args,
-        handle_controller_teleop,
+        road_depature_preventer,
     ])
