@@ -1,0 +1,25 @@
+# Input topics handled/muxed.
+# For each topic:
+# - name    : name identifier to select the topic (*sub-namespace, see below)
+# - topic   : input topic of geometry_msgs::can type
+# - timeout : timeout in seconds to start discarding old messages, and use 0.0 speed instead
+# - priority: priority in the range [0, 255]; the higher the more priority over other topics
+
+can_mux:
+  ros__parameters:
+    topics:
+      motor_controller:
+        topic   : /aiformula_control/motor_controller/reference_signal
+        timeout : 0.5
+        priority: 50
+
+      remote_motor_controller:
+        topic   : /aiformula_control/remote_motor_controller/reference_signal
+        timeout : 0.5
+        priority: 100
+
+      coasting:
+        topic   : /aiformula_control/remote_controller/reference_signal/coasting
+        timeout : 0.5
+        priority: 10
+ 
