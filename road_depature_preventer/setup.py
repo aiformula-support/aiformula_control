@@ -1,7 +1,7 @@
 from setuptools import find_packages, setup
 from common_python.setup_util import get_data_files
 
-package_name = 'gnss_safety_checker'
+package_name = 'road_depature_preventer'
 
 setup(
     name=package_name,
@@ -22,7 +22,7 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'gnss_safety_checker = gnss_safety_checker.gnss_safety_checker:main'
+            'road_depature_preventer = road_depature_preventer.road_depature_preventer:main'
         ],
     },
 )
