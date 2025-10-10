@@ -48,23 +48,31 @@ void EmergencyStopController::canFrameCallback(const can_msgs::msg::Frame::Share
     RCLCPP_INFO_ONCE(this->get_logger(), "Subscribe Can Frame !");
     if (msg->id != this->EMERGENCY_CAN_ID) return;
 
-    if (msg->dlc != 4) {
+    static constexpr uint8_t EMERGENCY_CAN_DLC = 4;
+    if (msg->dlc != EMERGENCY_CAN_DLC) {
         RCLCPP_WARN(this->get_logger(), "Invalid DLC: expected 4, got %d (id=0x%X)", msg->dlc, msg->id);
         return;
     }
 
     if (msg->data[0] == 8 && msg->data[2] == 8) {
-        is_emergency_ = true;
-    } else {
+        if (!is_emergency_) {
+            is_emergency_ = true;
+            publishStopTwist();
+        }
+    } else if (is_emergency_) {
         is_emergency_ = false;
     }
 }
 
-void EmergencyStopController::publishTwistCallback() {
+void EmergencyStopController::publishTwistCallback() const {
     if (is_emergency_) {
-        twist_pub_->publish(stop_twist_);
-        RCLCPP_INFO_ONCE(this->get_logger(), "Publish Twist !");
+        publishStopTwist();
     }
+}
+
+void EmergencyStopController::publishStopTwist() const {
+    twist_pub_->publish(stop_twist_);
+    RCLCPP_INFO_ONCE(this->get_logger(), "Publish Twist !");
 }
 
 }  // namespace aiformula
