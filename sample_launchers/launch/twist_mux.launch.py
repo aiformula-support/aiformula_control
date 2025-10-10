@@ -13,12 +13,12 @@ def generate_launch_description():
     LAUNCHERS_DIR = get_package_share_directory("sample_launchers")
 
     launch_args = (
-        # DeclareLaunchArgument(
-        #     "logger",
-        #     default_value="info",
-        #     choices=["debug", "info", "warn", "error", "fatal"],
-        #     description="Ros logger level",
-        # ),
+        DeclareLaunchArgument(
+            "logger",
+            default_value="info",
+            choices=["debug", "info", "warn", "error", "fatal"],
+            description="Ros logger level",
+        ),
         DeclareLaunchArgument(
             "use_rviz",
             default_value="false",
@@ -39,11 +39,11 @@ def generate_launch_description():
         namespace="/aiformula_control",
         output="screen",
         emulate_tty=True,
-        # arguments=[
-        #     "--ros-args",
-        #     "--log-level",
-        #     ["aiformula_control.", PACKAGE_NAME, ":=", LaunchConfiguration("logger")],
-        # ],
+        arguments=[
+            "--ros-args",
+            "--log-level",
+            ["aiformula_control.", PACKAGE_NAME, ":=", LaunchConfiguration("logger")],
+        ],
         parameters=[
             *ROS_PARAM_CONFIG,
             {
