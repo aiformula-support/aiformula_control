@@ -56,7 +56,7 @@ class GnssTest(Node):
         self.gnss_sub_ = self.create_subscription(NavSatFix, 'gnss', self.gnss_callback, buffer_size)
         # self.emergency_stop_can_sub_ = self.create_subscription()
         self.can_pub = self.create_publisher(Frame, 'pub_can', buffer_size)
-        self.twist_pub = self.create_publisher(Frame, 'pub_twist', buffer_size)
+        self.twist_pub = self.create_publisher(Twist, 'pub_twist', buffer_size)
         self.publish_timer = self.create_timer(self.publish_timer_loop_duration, self.publish_canframe_callback)
         # CAN Frame Set
         self.frame_msg = Frame()
@@ -139,14 +139,14 @@ class GnssTest(Node):
         if self.publish_estop_msgs_mode == PublishMode.WAIT and self.is_over_area:
             self.publish_estop_msgs_mode = PublishMode.READY
             
-        if self.publish_estop_msgs_mode == PublishMode.READY and self.publish_estop_msgs_counter > 10:
+        if self.publish_estop_msgs_mode == PublishMode.READY and self.publish_estop_msgs_counter > 100:
             self.publish_estop_msgs_mode = PublishMode.ALREADY
             self.publish_estop_msgs_counter = 0
             
         if self.publish_estop_msgs_mode == PublishMode.ALREADY and self.is_over_area == False:
             self.publish_estop_msgs_mode = PublishMode.WAIT
             
-        if self.publish_estop_msgs_counter < 10 and self.publish_estop_msgs_mode == PublishMode.READY:
+        if self.publish_estop_msgs_counter <= 100 and self.publish_estop_msgs_mode == PublishMode.READY:
             self.publish_estop_msgs_counter += 1
         
         if self.is_publish_can_msgs and self.is_push_emergency_stop:
