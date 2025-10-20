@@ -36,7 +36,8 @@ def generate_launch_description():
         parameters=[*ROS_PARAM_CONFIG],
         remappings=[
             ("gnss", "/aiformula_sensing/vectornav/gnss"),
-            ("pub_can", "motor_controller/reference_signal"),
+            ("pub_can", "/aiformula_control/motor_controller/reference_signal"),
+            ("pub_twist", "/aiformula_control/emergency_stop_controller/cmd_vel"),
         ],
     )
 
